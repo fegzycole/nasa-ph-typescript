@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import '../styles/arrow.scss';
 
@@ -8,7 +8,11 @@ interface ArrowProps {
   handleClick: Function;
 }
 
-const Arrow: FC<ArrowProps> = ({ outerClassName, innerClassName, handleClick }): JSX.Element => (
+const Arrow = ({
+  outerClassName,
+  innerClassName,
+  handleClick,
+}: ArrowProps): JSX.Element => (
   <div
     className={outerClassName}
     onClick={() => handleClick()}
