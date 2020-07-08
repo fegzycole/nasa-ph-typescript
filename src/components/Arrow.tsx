@@ -1,22 +1,25 @@
 import React from 'react';
 
 import '../styles/arrow.scss';
+import { MouseEvent, KeyboardEvent } from '../types';
 
 interface ArrowProps {
   outerClassName: string;
   innerClassName: string;
-  handleClick: Function;
+  handleClick: MouseEvent;
+  handleKeyPress: KeyboardEvent;
 }
 
 const Arrow = ({
   outerClassName,
   innerClassName,
   handleClick,
+  handleKeyPress,
 }: ArrowProps): JSX.Element => (
   <div
     className={outerClassName}
-    onClick={() => handleClick()}
-    onKeyPress={() => handleClick()}
+    onClick={handleClick}
+    onKeyPress={handleKeyPress}
     role="button"
     tabIndex={0}
   >

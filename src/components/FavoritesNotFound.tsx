@@ -2,9 +2,10 @@ import React from 'react';
 
 import Button from './Button';
 import favoriteNotFoundStyles from '../styles/favnotfound.module.scss';
+import { ButtonEvent } from '../types';
 
 interface FourZeroFour {
-  handleClick: Function;
+  handleClick: ButtonEvent;
   text: string;
 }
 
