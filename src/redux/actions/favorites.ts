@@ -1,5 +1,5 @@
 import CircularJSON from 'circular-json';
-import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import { firestore } from '../../firebase/firebase.util';
 import { toggleSpinner, addError, Picture, ActionTypes } from './index';
@@ -14,7 +14,7 @@ export const addFavorite = (payload: Picture[]): AddFavoriteAction => ({
   payload,
 });
 
-export const getFavorites = () => async (dispatch: Dispatch) => {
+export const getFavorites = () => async (dispatch: ThunkDispatch<{}, {}, any>) => {
   let favorites = JSON.parse(localStorage.getItem('favorites') || '{}');
 
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -39,11 +39,11 @@ export const getFavorites = () => async (dispatch: Dispatch) => {
   localStorage.setItem('favorites', favorites);
 };
 
-export const loadFavorites = () => async (dispatch: Dispatch) => {
+export const loadFavorites = () => async (dispatch: ThunkDispatch<{}, {}, any>) => {
   try {
     dispatch(toggleSpinner());
 
-    await dispatch<any>(getFavorites());
+    await dispatch(getFavorites());
   } catch (error) {
     dispatch(addError(error.message));
   }
@@ -51,7 +51,7 @@ export const loadFavorites = () => async (dispatch: Dispatch) => {
   dispatch(toggleSpinner());
 };
 
-export const addToFavorite = (picture: Picture) => async (dispatch: Dispatch) => {
+export const addToFavorite = (picture: Picture) => async (dispatch: ThunkDispatch<{}, {}, any>) => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const userRef = firestore.doc(`users/${user.uid}`);
@@ -63,7 +63,7 @@ export const addToFavorite = (picture: Picture) => async (dispatch: Dispatch) =>
       user: userRef,
     });
 
-    await dispatch<any>(getFavorites());
+    await dispatch(getFavorites());
   } catch (error) {
     dispatch(addError(error.message));
   }
@@ -71,13 +71,13 @@ export const addToFavorite = (picture: Picture) => async (dispatch: Dispatch) =>
   dispatch(toggleSpinner());
 };
 
-export const removeFromFavorites = ({ id }: Picture ) => async (dispatch: Dispatch) => {
+export const removeFromFavorites = ({ id }: Picture ) => async (dispatch: ThunkDispatch<{}, {}, any>) => {
   try {
     dispatch(toggleSpinner());
 
     await firestore.collection('favorites').doc(id).delete();
 
-    await dispatch<any>(getFavorites());
+    await dispatch(getFavorites());
   } catch (error) {
     dispatch(addError(error.message));
   }
@@ -85,7 +85,7 @@ export const removeFromFavorites = ({ id }: Picture ) => async (dispatch: Dispat
   dispatch(toggleSpinner());
 };
 
-export const removeFavorites = () => async (dispatch: Dispatch) => {
+export const removeFavorites = () => async (dispatch: ThunkDispatch<{}, {}, any>) => {
   const favorites = JSON.parse(localStorage.getItem('favorites') || '{}');
   try {
     await dispatch(toggleSpinner());
@@ -97,7 +97,7 @@ export const removeFavorites = () => async (dispatch: Dispatch) => {
     await dispatch(addError(error.message));
   }
 
-  await dispatch<any>(getFavorites());
+  await dispatch(getFavorites());
 
   dispatch(toggleSpinner());
 

@@ -16,7 +16,7 @@ interface HeaderProps extends RouteComponentProps<any> {
 }
 
 const Header: FC<HeaderProps> = ({
-  user, history, favorites, addUser, logoutUser,
+  user, history, favorites, addUser, logoutUser
 }) => {
   const logout = async (): Promise<void> => {
     await auth.signOut();

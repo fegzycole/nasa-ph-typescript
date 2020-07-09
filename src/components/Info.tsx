@@ -11,11 +11,11 @@ interface InfoProps {
   imageUrl: string;
   description: string;
   handleClick: ButtonEvent;
-  handleSelect: any;
+  handleSelect?: any;
   btnClolor: string;
-  showDate: boolean;
+  showDate?: boolean;
   text: string;
-  dateValue: string;
+  dateValue?: string;
 }
 
 const Info: FC<InfoProps> = ({
@@ -55,5 +55,9 @@ const Info: FC<InfoProps> = ({
     <p className={infoStyles.description}>{description}</p>
   </div>
 );
+
+Info.defaultProps = {
+  showDate: false,
+}
 
 export default Info;

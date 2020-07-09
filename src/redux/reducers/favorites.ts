@@ -1,8 +1,8 @@
 import { Action, ActionTypes, Picture } from '../actions/index';
 
-const myFavorites: Picture[] = JSON.parse(localStorage.getItem('favorites') || '{}');
+const myFavorites: Picture[] = JSON.parse(localStorage.getItem('favorites') || '[{}]');
 
-const favorites = (state: Picture[] = myFavorites || [], action: Action) => {
+const favorites = (state: Picture[] = myFavorites || [], action: Action): Picture[] => {
   switch (action.type) {
     case ActionTypes.ADD_FAVORITE:
       return action.payload;

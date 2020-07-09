@@ -5,7 +5,7 @@ export interface AddDateAction {
   payload: string,
 };
 
-export default (payload: string): AddDateAction => ({
+export const updateDate = (payload: string): AddDateAction => ({
   type: ActionTypes.ADD_DATE,
   payload,
 });

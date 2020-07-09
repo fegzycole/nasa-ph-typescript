@@ -27,4 +27,4 @@ const rootReducer = combineReducers<StoreState>({
 });
 
 export default (state: CombinedState<StoreState> | undefined, action: Action) =>
-  rootReducer(action.type === 9 ? undefined : state, action);
+  rootReducer(action.type === 'LOGOUT' ? undefined : state, action);
