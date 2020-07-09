@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import formInputStyles from '../styles/forminput.module.scss';
 import { InputEvent } from '../types';
@@ -12,14 +12,14 @@ interface FormInputProps {
   placeholderText: string;
 }
 
-const FormInput = ({
+const FormInput: FC<FormInputProps> = ({
   type,
   labelText,
   name,
   value,
   handleChange,
   placeholderText,
-}: FormInputProps): JSX.Element => (
+}): JSX.Element => (
   <div className={formInputStyles.forminput}>
     <p className={formInputStyles.text}>{labelText}</p>
     <input
@@ -36,7 +36,7 @@ const FormInput = ({
 );
 
 FormInput.defaultProps = {
-  value: null,
+  value: '',
   handleChange: () => null,
 };
 

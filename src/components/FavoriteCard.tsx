@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import favoriteCardStyles from '../styles/favoritecard.module.scss';
 import { MouseEvent, KeyboardEvent } from '../types';
@@ -10,12 +10,12 @@ interface CardProps {
   handleKeyPress: KeyboardEvent;
 }
 
-const FavoriteCard = ({
+const FavoriteCard: FC<CardProps> = ({
   imageUrl,
   title,
   handleKeyPress,
   handleClick,
-}: CardProps): JSX.Element => (
+}): JSX.Element => (
   <div
     onClick={handleClick}
     onKeyPress={handleKeyPress}

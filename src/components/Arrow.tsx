@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import '../styles/arrow.scss';
 import { MouseEvent, KeyboardEvent } from '../types';
@@ -10,12 +10,12 @@ interface ArrowProps {
   handleKeyPress: KeyboardEvent;
 }
 
-const Arrow = ({
+const Arrow: FC<ArrowProps> = ({
   outerClassName,
   innerClassName,
   handleClick,
   handleKeyPress,
-}: ArrowProps): JSX.Element => (
+}): JSX.Element => (
   <div
     className={outerClassName}
     onClick={handleClick}

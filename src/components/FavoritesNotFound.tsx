@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Button from './Button';
 import favoriteNotFoundStyles from '../styles/favnotfound.module.scss';
@@ -9,7 +9,7 @@ interface FourZeroFour {
   text: string;
 }
 
-const FavoritesNotFound = ({ handleClick, text }: FourZeroFour): JSX.Element => (
+const FavoritesNotFound: FC<FourZeroFour> = ({ handleClick, text }): JSX.Element => (
   <div className={favoriteNotFoundStyles.favNotFound}>
     <p
       className={favoriteNotFoundStyles.text}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import buttonStyles from '../styles/button.module.scss';
 import { ButtonEvent } from '../types';
@@ -9,9 +9,9 @@ interface ButtonProps {
   color: string;
 }
 
-const Button = ({ text, handleClick, color }: ButtonProps): JSX.Element => (
+const Button: FC<ButtonProps> = ({ text, handleClick, color }): JSX.Element => (
   <button
-    type="button"
+    type='button'
     style={{ backgroundColor: color }}
     onClick={handleClick}
     className={buttonStyles.button}

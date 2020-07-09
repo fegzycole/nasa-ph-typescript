@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import FormInput from './FormInput';
 import NasaLogo from '../images/nasa.png';
@@ -19,7 +19,7 @@ interface FormProps {
   error: string | null;
 }
 
-const Form = ({
+const Form: FC<FormProps> = ({
   email,
   password,
   handleEmailChange,
@@ -31,7 +31,7 @@ const Form = ({
   confirmPassword,
   handlePasswordConfirmationChange,
   error,
-}: FormProps): JSX.Element => (
+}): JSX.Element => (
   <>
     <div className={formStyles.formContainer}>
       <img src={NasaLogo} alt="" className={formStyles.logo} />
@@ -78,7 +78,7 @@ const Form = ({
 
 Form.defaultProps = {
   showExtraPassword: false,
-  confirmPassword: null,
+  confirmPassword: '',
   handlePasswordConfirmationChange: () => null,
 };
 
