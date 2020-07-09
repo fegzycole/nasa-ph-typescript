@@ -1,6 +1,8 @@
-import { ActionTypes, Action, Picture } from '../actions';
+import ActionTypes from '../actions/types';
+import Action from '../actions/action';
+import { Picture } from '../actions/pictures';
 
-const date = (state: Picture = {} as Picture, action: Action): Picture => {
+const date = (state: Picture | null = null, action: Action): Picture | null => {
   switch (action.type) {
     case ActionTypes.ADD_PICTURE:
       return action.payload;

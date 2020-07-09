@@ -1,10 +1,12 @@
 import React, { useState, FC } from 'react';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 import { Dispatch } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import Form from '../components/Form';
-import { toggleSpinner, addUser, User } from '../redux/actions';
+import { toggleSpinner } from '../redux/actions/spinner';
+import { addUser } from '../redux/actions/user';
 import { StoreState } from '../redux/reducers';
 import Spinner from '../components/Spinner';
 import { auth } from '../firebase/firebase.util';
@@ -15,38 +17,38 @@ interface SignupProps extends RouteComponentProps<any> {
   addUser: Function;
 }
 
-const Signup: FC<SignupProps> = ({
-  spinner, toggleSpinner, history, addUser,
-}) => {
+const Signup: FC<SignupProps> = ({ spinner, history, toggleSpinner, addUser }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  const signup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const signup = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
 
     setError(null);
 
     if (password !== passwordConfirmation) {
       setError('Passwords must match!!');
-    } else {
-      try {
-        toggleSpinner();
-        const { user } = await auth.createUserWithEmailAndPassword(email, password);
+      return undefined;
+    }
 
-        const newUser = JSON.stringify(user);
+    try {
+      toggleSpinner();
+      const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
-        localStorage.setItem('user', newUser);
+      const newUser = JSON.stringify(user);
 
-        addUser(user);
-        toggleSpinner();
+      localStorage.setItem('user', newUser);
 
-        history.push('/');
-      } catch (error) {
-        toggleSpinner();
-        setError(error.message);
-      }
+      addUser(user);
+      toggleSpinner();
+
+      return history.push('/');
+    } catch (error_) {
+      toggleSpinner();
+      setError(error_.message);
+      return undefined;
     }
   };
 
@@ -58,27 +60,25 @@ const Signup: FC<SignupProps> = ({
       <Form
         email={email}
         password={password}
-        handleEmailChange={e => setEmail(e.target.value)}
-        handlePasswordChange={e => setPassword(e.target.value)}
-        headerText="Sign Up"
+        handleEmailChange={(event) => setEmail(event.target.value)}
+        handlePasswordChange={(event) => setPassword(event.target.value)}
+        headerText='Sign Up'
         showExtraPassword
         confirmPassword={passwordConfirmation}
-        handlePasswordConfirmationChange={e => setPasswordConfirmation(e.target.value)}
+        handlePasswordConfirmationChange={(event) => setPasswordConfirmation(event.target.value)}
         handleSubmit={signup}
-        submitBtnText="Register"
+        submitBtnText='Register'
         error={error}
       />
     </div>
   );
 };
 
-const mapStateToProps = ({ spinner }: StoreState) => ({
-  spinner,
-});
+const mapStateToProperties = ({ spinner }: StoreState) => ({ spinner });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProperties = (dispatch: Dispatch) => ({
   toggleSpinner: () => dispatch(toggleSpinner()),
-  setUserStatus: (user: User) => dispatch(addUser(user)),
+  addUser: (user: firebase.User | null) => dispatch(addUser(user)),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Signup));
+export default withRouter(connect(mapStateToProperties, mapDispatchToProperties)(Signup));

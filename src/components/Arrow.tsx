@@ -20,7 +20,7 @@ const Arrow: FC<ArrowProps> = ({
     className={outerClassName}
     onClick={handleClick}
     onKeyPress={handleKeyPress}
-    role="button"
+    role='button'
     tabIndex={0}
   >
     <i className={innerClassName} />

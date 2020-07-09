@@ -1,8 +1,15 @@
-import { Action, ActionTypes, User } from '../actions';
+import firebase from 'firebase';
 
-const user: User = JSON.parse(localStorage.getItem('user') || '{}');
+import ActionTypes from '../actions/types';
+import Action from '../actions/action';
 
-const userReducer = (state: User = user || {}, action: Action): User => {
+const localUser = localStorage.getItem('user');
+
+const user = localUser ? JSON.parse(localUser || '') : null;
+
+console.log(3333, user);
+
+const userReducer = (state: firebase.User | null = user, action: Action): firebase.User | null => {
   switch (action.type) {
     case ActionTypes.SET_USER:
       return action.payload;

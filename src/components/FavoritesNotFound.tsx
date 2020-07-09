@@ -17,8 +17,8 @@ const FavoritesNotFound: FC<FourZeroFour> = ({ handleClick, text }): JSX.Element
       {text}
     </p>
     <Button
-      text="Return Home"
-      color="#a27bd3"
+      text='Return Home'
+      color='#a27bd3'
       handleClick={handleClick}
     />
   </div>

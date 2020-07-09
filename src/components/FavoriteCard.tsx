@@ -19,11 +19,11 @@ const FavoriteCard: FC<CardProps> = ({
   <div
     onClick={handleClick}
     onKeyPress={handleKeyPress}
-    role="button"
+    role='button'
     tabIndex={0}
     className={favoriteCardStyles.favorite}
   >
-    <img src={imageUrl} alt="" className={favoriteCardStyles.favoriteImg} />
+    <img src={imageUrl} alt='' className={favoriteCardStyles.favoriteImg} />
     <h6 className={favoriteCardStyles.favoriteTitle}>{title}</h6>
   </div>
 );

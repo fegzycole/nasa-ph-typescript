@@ -15,8 +15,6 @@ const Spinner: FC<SpinnerProps> = ({ addOverlay }) => (
   </div>
 );
 
-Spinner.defaultProps = {
-  addOverlay: false,
-};
+Spinner.defaultProps = { addOverlay: false };
 
 export default Spinner;

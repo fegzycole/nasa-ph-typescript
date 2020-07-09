@@ -34,41 +34,41 @@ const Form: FC<FormProps> = ({
 }): JSX.Element => (
   <>
     <div className={formStyles.formContainer}>
-      <img src={NasaLogo} alt="" className={formStyles.logo} />
+      <img src={NasaLogo} alt='' className={formStyles.logo} />
       <form
         onSubmit={handleSubmit}
         className={formStyles.form}
-        data-testid="form"
+        data-testid='form'
       >
         <h1 className={formStyles.header}>{headerText}</h1>
         <FormInput
-          name="email"
-          type="email"
+          name='email'
+          type='email'
           value={email}
           handleChange={handleEmailChange}
-          labelText="Email"
-          placeholderText="Enter Email"
+          labelText='Email'
+          placeholderText='Enter Email'
         />
         <FormInput
-          name="password"
-          type="password"
+          name='password'
+          type='password'
           value={password}
           handleChange={handlePasswordChange}
-          labelText="Password"
-          placeholderText="Enter Password"
+          labelText='Password'
+          placeholderText='Enter Password'
         />
         {showExtraPassword && (
           <FormInput
-            name="confirmPassword"
-            type="password"
+            name='confirmPassword'
+            type='password'
             value={confirmPassword}
             handleChange={handlePasswordConfirmationChange}
-            labelText="Confirm Password"
-            placeholderText="Enter Password Confirmation"
+            labelText='Confirm Password'
+            placeholderText='Enter Password Confirmation'
           />
         )}
 
-        <input type="submit" value={submitBtnText} className={formStyles.btn} />
+        <input type='submit' value={submitBtnText} className={formStyles.btn} />
 
         <p className={formStyles.error}>{error}</p>
       </form>

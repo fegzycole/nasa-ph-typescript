@@ -1,16 +1,13 @@
-import { ActionTypes } from './index';
+import firebase from 'firebase';
 
-export interface User {
-  email: string,
-  uid: string,
-}
+import ActionTypes from './types';
 
 export interface AddUserAction {
-  type: ActionTypes.SET_USER,
-  payload: User,
+  type: ActionTypes.SET_USER;
+  payload: firebase.User | null;
 }
 
-export const addUser = (payload: User): AddUserAction => ({
+export const addUser = (payload: firebase.User | null): AddUserAction => ({
   type: ActionTypes.SET_USER,
   payload,
 });

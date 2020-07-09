@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
-import { toggleSpinner, addError, ActionTypes } from './index';
+import ActionTypes from './types';
+import { toggleSpinner } from './spinner';
+import { addError } from './error';
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -18,9 +20,9 @@ export interface Picture {
 }
 
 export interface AddPictureAction {
-  type: ActionTypes.ADD_PICTURE
-  payload: Picture
-};
+  type: ActionTypes.ADD_PICTURE;
+  payload: Picture;
+}
 
 export const addPicture = (payload: Picture): AddPictureAction => ({
   type: ActionTypes.ADD_PICTURE,
@@ -31,10 +33,11 @@ export const getPicture = (date: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(addError(null));
 
-    // dispatch(toggleSpinner());
-    console.log('hiiiiiiiiii');
+    dispatch(toggleSpinner());
 
-    const { data } = await axios.get<Picture>(`https://api.nasa.gov/planetary/apod?api_key=${REACT_APP_API_KEY}&date=${date}`);
+    const URL = `https://api.nasa.gov/planetary/apod?api_key=${REACT_APP_API_KEY}&date=${date}`;
+
+    const { data } = await axios.get<Picture>(URL);
 
     dispatch(addPicture(data));
 

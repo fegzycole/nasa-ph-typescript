@@ -1,8 +1,8 @@
-import { ActionTypes } from './index';
+import ActionTypes from './types';
 
 export interface AddErrorAction {
-  type: ActionTypes.ADD_ERROR,
-  payload: string | null,
+  type: ActionTypes.ADD_ERROR;
+  payload: string | null;
 }
 
 export const addError = (payload: string | null): AddErrorAction => ({

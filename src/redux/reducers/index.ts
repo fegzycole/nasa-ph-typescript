@@ -1,6 +1,8 @@
 import { combineReducers, CombinedState } from 'redux';
+import firebase from 'firebase';
 
-import { Picture, User, Action } from '../actions';
+import Action from '../actions/action';
+import { Picture } from '../actions/pictures';
 import date from './date';
 import spinner from './spinner';
 import picture from './pictures';
@@ -11,10 +13,10 @@ import user from './user';
 export interface StoreState {
   date: string;
   spinner: boolean;
-  picture: Picture;
+  picture: Picture | null;
   error: string | null;
   favorites: Picture[];
-  user: User;
+  user: firebase.User | null;
 }
 
 const rootReducer = combineReducers<StoreState>({
@@ -26,5 +28,6 @@ const rootReducer = combineReducers<StoreState>({
   user,
 });
 
-export default (state: CombinedState<StoreState> | undefined, action: Action) =>
-  rootReducer(action.type === 'LOGOUT' ? undefined : state, action);
+export default (state: CombinedState<StoreState> | undefined, action: Action) => (
+  rootReducer(action.type === 'LOGOUT' ? undefined : state, action)
+);

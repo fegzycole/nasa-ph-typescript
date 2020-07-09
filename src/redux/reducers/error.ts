@@ -1,4 +1,5 @@
-import { Action, ActionTypes } from '../actions';
+import ActionTypes from '../actions/types';
+import Action from '../actions/action';
 
 const spinner = (state: string | null = null, action: Action): string | null => {
   switch (action.type) {

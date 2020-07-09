@@ -56,8 +56,6 @@ const Info: FC<InfoProps> = ({
   </div>
 );
 
-Info.defaultProps = {
-  showDate: false,
-}
+Info.defaultProps = { showDate: false };
 
 export default Info;

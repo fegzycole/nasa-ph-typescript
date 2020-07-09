@@ -1,4 +1,5 @@
-import { ActionTypes, Action } from '../actions';
+import ActionTypes from '../actions/types';
+import Action from '../actions/action';
 import { getTodayDate } from '../../helpers';
 
 const date = (state: string = getTodayDate(), action: Action): string => {

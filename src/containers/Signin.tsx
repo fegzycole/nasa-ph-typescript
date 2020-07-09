@@ -1,10 +1,12 @@
 import React, { useState, FC } from 'react';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 import { Dispatch } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import Form from '../components/Form';
-import { toggleSpinner, addUser, User } from '../redux/actions';
+import { toggleSpinner } from '../redux/actions/spinner';
+import { addUser } from '../redux/actions/user';
 import { StoreState } from '../redux/reducers';
 import Spinner from '../components/Spinner';
 import { auth } from '../firebase/firebase.util';
@@ -15,15 +17,13 @@ interface SignInProps extends RouteComponentProps<any> {
   addUser: Function;
 }
 
-const SignIn: FC<SignInProps> = ({
-  spinner, toggleSpinner, history, addUser,
-}) => {
+const SignIn: FC<SignInProps> = ({ spinner, history, toggleSpinner, addUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-  const signin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const signin = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
 
     setError(null);
     try {
@@ -40,9 +40,10 @@ const SignIn: FC<SignInProps> = ({
       toggleSpinner();
 
       return history.push('/');
-    } catch (error) {
+    } catch (error_) {
       toggleSpinner();
-      setError(error.message);
+      setError(error_.message);
+      return undefined;
     }
   };
 
@@ -54,24 +55,22 @@ const SignIn: FC<SignInProps> = ({
       <Form
         email={email}
         password={password}
-        handleEmailChange={e => setEmail(e.target.value)}
-        handlePasswordChange={e => setPassword(e.target.value)}
-        headerText="Sign In"
+        handleEmailChange={(event) => setEmail(event.target.value)}
+        handlePasswordChange={(event) => setPassword(event.target.value)}
+        headerText='Sign In'
         handleSubmit={signin}
-        submitBtnText="Login"
+        submitBtnText='Login'
         error={error}
       />
     </div>
   );
 };
 
-const mapStateToProps = ({ spinner }: StoreState) => ({
-  spinner,
-});
+const mapStateToProperties = ({ spinner }: StoreState) => ({ spinner });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProperties = (dispatch: Dispatch) => ({
   toggleSpinner: () => dispatch(toggleSpinner()),
-  addUser: (user: User) => dispatch(addUser(user)),
+  addUser: (user: firebase.User | null) => dispatch(addUser(user)),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn));
+export default withRouter(connect(mapStateToProperties, mapDispatchToProperties)(SignIn));

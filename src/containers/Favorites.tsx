@@ -1,35 +1,33 @@
 import React, { useEffect, FC } from 'react';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 import { ThunkDispatch } from 'redux-thunk';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import FavoriteCard from '../components/FavoriteCard';
 import favoritesStyles from '../styles/favorites.module.scss';
+import { ButtonEvent } from '../types';
 import Button from '../components/Button';
-import {
-  removeFavorites,
-  loadFavorites,
-  Picture,
-  User,
-} from '../redux/actions';
+import { removeFavorites, loadFavorites } from '../redux/actions/favorites';
+import { Picture } from '../redux/actions/pictures';
 import { StoreState } from '../redux/reducers';
 import FavoritesNotFound from '../components/FavoritesNotFound';
 import Spinner from '../components/Spinner';
 
 interface FavoritesProp extends RouteComponentProps<any> {
   favorites: Picture[];
-  removeFavorites: Function;
+  removeFavorites: ButtonEvent;
   spinner: boolean;
-  user: User;
+  user: firebase.User | null;
   loadFavorites: Function;
 }
 
 const Favorites: FC<FavoritesProp> = ({
   favorites,
   history,
-  removeFavorites,
   spinner,
   user,
+  removeFavorites,
   loadFavorites,
 }) => {
   const showFavorite = (date: string) => history.push(`/favorite/${date}`);
@@ -38,12 +36,8 @@ const Favorites: FC<FavoritesProp> = ({
     history.push('/');
   };
 
-  const removeAllFavorites = () => {
-    removeFavorites();
-  };
-
   const initialize = () => {
-    if (!user.email) {
+    if (!user) {
       history.push('/signin');
     }
 
@@ -66,7 +60,7 @@ const Favorites: FC<FavoritesProp> = ({
                 <Button
                   text='Clear All'
                   color='red'
-                  handleClick={removeAllFavorites}
+                  handleClick={removeFavorites}
                 />
               </div>
               <div className={favoritesStyles.favorites}>
@@ -93,17 +87,17 @@ const Favorites: FC<FavoritesProp> = ({
   );
 };
 
-const mapStateToProps = ({ favorites, spinner, user }: StoreState) => ({
+const mapStateToProperties = ({ favorites, spinner, user }: StoreState) => ({
   favorites,
   spinner,
   user,
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
+const mapDispatchToProperties = (dispatch: ThunkDispatch<{}, {}, any>) => ({
   removeFavorites: () => dispatch(removeFavorites()),
   loadFavorites: () => dispatch(loadFavorites()),
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Favorites),
+  connect(mapStateToProperties, mapDispatchToProperties)(Favorites),
 );

@@ -1,14 +1,4 @@
-import {
-  AddUserAction,
-  AddDateAction,
-  AddLogoutAction,
-  AddErrorAction,
-  AddFavoriteAction,
-  AddSpinnerAction,
-  AddPictureAction
-} from './index';
-
-export enum ActionTypes {
+enum ActionTypes {
   ADD_DATE = 'ADD_DATE',
   TOGGLE_SPINNER = 'TOGGLE_SPINNER',
   ADD_PICTURE = 'ADD_PICTURE',
@@ -21,11 +11,4 @@ export enum ActionTypes {
   LOGOUT = 'LOGOUT',
 }
 
-export type Action =
-  | AddUserAction
-  | AddDateAction
-  | AddLogoutAction
-  | AddErrorAction
-  | AddFavoriteAction
-  | AddSpinnerAction
-  | AddPictureAction;
+export default ActionTypes;
