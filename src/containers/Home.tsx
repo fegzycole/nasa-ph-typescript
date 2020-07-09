@@ -81,6 +81,8 @@ const Home: FC<HomeProps> = ({
 
   const isFavorite = favorites.find((pic) => pic.date === picture.date);
 
+  console.log(spinner);
+
   return (
     <div className={homeStyles.home}>
       <Arrow
@@ -96,7 +98,6 @@ const Home: FC<HomeProps> = ({
         handleKeyPress={handleNextClick}
       />
       <div>
-        {console.log(spinner)}
         { spinner ? <Spinner /> : (
           <div className={homeStyles.infoContainer}>
             {

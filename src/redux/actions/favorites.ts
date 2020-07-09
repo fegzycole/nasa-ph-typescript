@@ -15,7 +15,7 @@ export const addFavorite = (payload: Picture[]): AddFavoriteAction => ({
 });
 
 export const getFavorites = () => async (dispatch: ThunkDispatch<{}, {}, any>) => {
-  let favorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+  let favorites = JSON.parse(localStorage.getItem('favorites') || '[{}]');
 
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
