@@ -6,17 +6,18 @@ import { connect } from 'react-redux';
 
 import headerStyles from '../styles/header.module.scss';
 import { addUser } from '../redux/actions/user';
-import { logoutUser } from '../redux/actions/logout';
+import { updateDate } from '../redux/actions/date';
 import { Picture } from '../redux/actions/pictures';
 import { addFavorite } from '../redux/actions/favorites';
 import { StoreState } from '../redux/reducers';
 import { auth } from '../firebase/firebase.util';
+import { getTodayDate } from '../helpers';
 
 interface HeaderProps extends RouteComponentProps<any> {
   user: firebase.User | null;
   favorites: Picture[];
   addUser: Function;
-  logoutUser: Function;
+  updateDate: Function;
   addFavorite: Function;
 }
 
@@ -25,7 +26,7 @@ const Header: FC<HeaderProps> = ({
   history,
   favorites,
   addUser,
-  logoutUser,
+  updateDate,
   addFavorite,
 }) => {
   const logout = async (): Promise<void> => {
@@ -37,7 +38,9 @@ const Header: FC<HeaderProps> = ({
 
     addUser(null);
 
-    logoutUser();
+    const date = getTodayDate();
+
+    updateDate(date);
 
     addFavorite([]);
 
@@ -49,7 +52,6 @@ const Header: FC<HeaderProps> = ({
       <ul
         className={`${headerStyles.headerLinks} ${user ? 'expandHeader' : ''}`}
       >
-        {console.log(1111, user)}
         {user ? (
           <>
             {favorites.length > 0 ? (
@@ -104,7 +106,7 @@ const mapStateToProperties = ({ user, favorites }: StoreState) => ({
 
 const mapDispatchToProperties = (dispatch: Dispatch) => ({
   addUser: (user: firebase.User | null) => dispatch(addUser(user)),
-  logoutUser: () => dispatch(logoutUser()),
+  updateDate: (date: string) => dispatch(updateDate(date)),
   addFavorite: (favorites: Picture[]) => dispatch(addFavorite(favorites)),
 });
 

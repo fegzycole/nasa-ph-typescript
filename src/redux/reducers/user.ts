@@ -7,8 +7,6 @@ const localUser = localStorage.getItem('user');
 
 const user = localUser ? JSON.parse(localUser || '') : null;
 
-console.log(3333, user);
-
 const userReducer = (state: firebase.User | null = user, action: Action): firebase.User | null => {
   switch (action.type) {
     case ActionTypes.SET_USER:
