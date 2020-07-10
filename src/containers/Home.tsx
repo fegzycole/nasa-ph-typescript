@@ -41,7 +41,7 @@ const Home: FC<HomeProps> = ({
   addToFavorite,
   removeFromFavorites,
   loadFavorites,
-}) => {
+}): JSX.Element => {
   const getCurrentPicture = (picDate = date) => {
     getPicture(picDate);
   };

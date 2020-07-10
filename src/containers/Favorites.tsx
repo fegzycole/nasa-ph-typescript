@@ -29,7 +29,7 @@ const Favorites: FC<FavoritesProp> = ({
   user,
   removeFavorites,
   loadFavorites,
-}) => {
+}): JSX.Element => {
   const showFavorite = (date: string) => history.push(`/favorite/${date}`);
 
   const redirectHome = () => {

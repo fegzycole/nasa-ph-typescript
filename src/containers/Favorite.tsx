@@ -23,7 +23,7 @@ const Favorite: FC<FavoriteProps> = ({
   history,
   removeFromFavorites,
   spinner,
-}) => {
+}): JSX.Element => {
   const { params: { date } } = match;
 
   const picture = favorites.find((pic: Picture) => pic.date === date);

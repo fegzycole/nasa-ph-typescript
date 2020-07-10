@@ -17,7 +17,7 @@ interface SignupProps extends RouteComponentProps<any> {
   addUser: Function;
 }
 
-const Signup: FC<SignupProps> = ({ spinner, history, toggleSpinner, addUser }) => {
+const Signup: FC<SignupProps> = ({ spinner, history, toggleSpinner, addUser }): JSX.Element => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
