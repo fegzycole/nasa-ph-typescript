@@ -1,0 +1,33 @@
+.favoritesContainer {
+  width: 100%;
+  padding: 80px 0;
+}
+
+.favorites {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.group {
+  display: flex;
+  width: 70%;
+  margin: 0 auto 20px auto;
+  justify-content: space-between;
+}
+
+.groupHeader {
+  text-transform: uppercase;
+  color: #a27bd3;
+}
+
+@media screen and (max-width: 600px) {
+  .favorites {
+    flex-direction: column;
+  }
+
+  .group {
+    width: 90%;
+  }
+}

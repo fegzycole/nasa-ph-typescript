@@ -1,0 +1,24 @@
+.header {
+  width: 100%;
+  padding: 15px;
+  position: fixed;
+  background: rgb(18, 18, 18);
+}
+
+.headerLinks {
+  width: 150px;
+  margin: 0 auto;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.headerLink {
+  color: #b480f3;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.headerList:not(:first-child) {
+  margin-left: 20px;
+}
